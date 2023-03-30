@@ -26,6 +26,13 @@ export const api = createApi({
                 body: payload,
             }),
         }),
+        postAiImage: build.mutation({
+            query: (payload) => ({
+                url: "openai/image",
+                method: "POST",
+                body: payload,
+            }),
+        }),
         postLogin: build.mutation({
             query: (payload) => ({
                 url: "auth/login",
@@ -46,6 +53,7 @@ export const {
     usePostAiTextMutation,
     usePostAiCodeMutation,
     usePostAiAssistMutation,
+    usePostAiImageMutation,
     usePostLoginMutation,
     usePostSignUpMutation,
 } = api

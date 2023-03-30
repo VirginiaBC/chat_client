@@ -1,29 +1,34 @@
-import { PaperAirplaneIcon, PaperClipIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import React, {useState} from 'react'
-import Dropzone from 'react-dropzone';
+import {
+  PaperAirplaneIcon,
+  PaperClipIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
+import React, { useState } from "react";
+import Dropzone from "react-dropzone";
 
 const MessageFormUI = ({
-    setAttachment,
-    message, 
-    handleChange,
-    handleSubmit,
-    appendText,
-    handleKeyDown
+  setAttachment,
+  message,
+  handleChange,
+  handleSubmit,
+  appendText,
+  handleKeyDown,
 }) => {
-    const [preview, setPreview]  = useState("");
+  const [preview, setPreview] = useState("");
+
   return (
-    <div className='message-form-container'>
+    <div className="message-form-container">
       {preview && (
-        <div className='message-form-preview'>
-          <img 
-            alt = "message-form-preview" 
-            className="message-form-preview-image" 
-            src = {preview} 
-            onLoad = {() => URL.revokeObjectURL(preview)} 
+        <div className="message-form-preview">
+          <img
+            alt="message-form-preview"
+            className="message-form-preview-image"
+            src={preview}
+            onLoad={() => URL.revokeObjectURL(preview)}
           />
           <XMarkIcon
-            className='message-form-icon-x'
-            onClick={()=> {
+            className="message-form-icon-x"
+            onClick={() => {
               setPreview("");
               setAttachment("");
             }}
@@ -32,15 +37,15 @@ const MessageFormUI = ({
           by the URL.createObjectURL() method after the image is loaded. This avoids resource leakage problems. */}
         </div>
       )}
-      <div className='message-form'>
-        <div className='message-form-input-container'>
-          <input 
-            className='message-form-input' 
-            type = "text"
+      <div className="message-form">
+        <div className="message-form-input-container">
+          <input
+            className="message-form-input"
+            type="text"
             value={message}
-            onChange = {handleChange}
-            onKeyDown = {handleKeyDown}
-            placeholder = "Send a message..."
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Send a message..."
           />
           {appendText && (
             <input
@@ -51,40 +56,39 @@ const MessageFormUI = ({
             />
           )}
         </div>
-        <div className='message-form-icons'>
+        <div className="message-form-icons">
           <Dropzone
-            acceptedFiles = ".jpg, .jpeg, .png"
-            multiple = {false}
-            noClick = {true}
-            onDrop  ={(acceptedFiles) => {
+            acceptedFiles=".jpg, .jpeg, .png"
+            multiple={false}
+            noClick={true}
+            onDrop={(acceptedFiles) => {
               setAttachment(acceptedFiles[0]);
-              setPreview(URL.createObjectURL(acceptedFiles[0]))
+              setPreview(URL.createObjectURL(acceptedFiles[0]));
             }}
           >
-            {({getRootProps, getInputProps, open}) => (
+            {({ getRootProps, getInputProps, open }) => (
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <PaperClipIcon
-                  className='message-form-icon-clip'
+                  className="message-form-icon-clip"
                   onClick={open}
                 />
               </div>
             )}
           </Dropzone>
 
-          <hr className='vertical-line' />
+          <hr className="vertical-line" />
           <PaperAirplaneIcon
-            className='message-form-icon-airplane'
+            className="message-form-icon-airplane"
             onClick={() => {
               setPreview("");
               handleSubmit();
             }}
           />
-
         </div>
       </div>
-    </div>  
-  )
-}
+    </div>
+  );
+};
 
-export default MessageFormUI
+export default MessageFormUI;

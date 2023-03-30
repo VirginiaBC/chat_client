@@ -8,11 +8,16 @@ const StandardMessageForm = ({props, activeChat}) => {
   const handleChange = (e) => setMessage(e.target.value);
 
   const handleSubmit = async () =>{
+
+    if (!message) return;
+
     const date = new Date()
     .toISOString()
     .replace("T", " ")
     .replace("Z", `${Math.floor(Math.random()*1000)}+00:00`);
     const at = attachment ? [{blob : attachment, file: attachment.name}] : [];
+
+
     const form = {
       attachments: at,
       created: date,
